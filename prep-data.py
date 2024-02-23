@@ -1,10 +1,16 @@
 import pandas as pd
 import argparse
 
-data_path = "/workflow/inputs/data_path"
+# Read input data
+named_input = "data_path"
+data_path = "/workflow/inputs/{}".format(named_input)
 df = pd.read_csv(data_path)
+
+# Process data
 print(df)
 df = df.drop('a', axis=1)
 print(df)
 
-df.to_csv("/workflow/outputs/processed_data")
+# Write output
+named_output = "processed_data"
+df.to_csv("/workflow/outputs/{}/".format(named_output))

@@ -21,8 +21,23 @@ prep_data_job = DominoJobTask(
     outputs={"processed_data": FlyteFile}
 )
 
+train_job_config = DominoJobConfig(
+    OwnerName=owner_name,
+    ProjectName=project_name,
+    ApiKey=api_key,
+    Command="python train.py"
+)
+
+train_job = DominoJobTask(
+    "Train model",
+    train_job_config,
+    inputs={"processed_data": FlyteFile},
+    outputs={"model": FlyteDirectory}
+)
+
 # pyflyte run --remote workflow.py training_workflow
 @workflow
 def training_workflow():
     processed_data = prep_data_job(data_path="./data.csv")
+    model = train_job(processed_data=processed_data)
     return 

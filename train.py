@@ -5,7 +5,7 @@ from time import sleep
 # Read input data
 named_input = "processed_data"
 data_path = "/workflow/inputs/{}".format(named_input)
-df = pd.read_csv(data_path)
+df = pd.read_csv("{}/data.csv".format(data_path))
 
 # Pretend like something is happening here to train the model
 sleep(20)

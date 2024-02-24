@@ -13,7 +13,8 @@ print(df)
 
 # Write output
 named_output = "processed_data"
-df.to_csv("/workflow/outputs/{}".format(named_output))
+output_dir = "/workflow/outputs/{}".format(named_output)
+df.to_csv("{}/data.csv".format(output_dir))
 
 # Write output success
 with open("/workflow/outputs/_SUCCESS", "w+"):

@@ -20,7 +20,7 @@ prep_data_job = DominoJobTask(
     "Prepare data",
     prep_data_job_config,
     inputs={"data_path": FlyteFile},
-    outputs={"processed_data": FlyteFile}
+    outputs={"processed_data": FlyteDirectory}
 )
 
 train_job_config = DominoJobConfig(
@@ -34,7 +34,7 @@ train_job_config = DominoJobConfig(
 train_job = DominoJobTask(
     "Train model",
     train_job_config,
-    inputs={"processed_data": FlyteFile},
+    inputs={"processed_data": FlyteDirectory},
     outputs={"model": FlyteDirectory}
 )
 

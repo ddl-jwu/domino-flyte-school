@@ -13,4 +13,4 @@ print(df)
 
 # Write output
 named_output = "processed_data"
-df.to_csv("/workflow/outputs/{}/".format(named_output))
+df.to_csv("/workflow/outputs/{}".format(named_output))

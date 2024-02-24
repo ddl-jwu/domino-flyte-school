@@ -29,7 +29,6 @@
 * Input Environment Variables:
 * - DOMINO_PROJECT_NAME
 * - DOMINO_WORKING_DIR
-* - DCUTDTC
 *
 * Outputs:                                                   
 * - global variables defined
@@ -69,7 +68,6 @@
 * globals read in from env vars; 
 %global __WORKING_DIR  ; * path to root of working directory ;
 %global __PROJECT_NAME ; * project name <PROTOCOL>_<TYPE> ;
-%global __DCUTDTC      ; * cutoff date in ISO8901 format ;
  
 * globals derived from env vars;
 %global __PROTOCOL;      * Protocol identifier e.g H2QMCLZZT; 
@@ -88,9 +86,6 @@
 * ==================================================================;
 %let __WORKING_DIR  = %sysget(DOMINO_WORKING_DIR);
 %let __PROJECT_NAME = %sysget(DOMINO_PROJECT_NAME);
-%let __DCUTDTC      = %sysget(DCUTDTC);
-* runtime check that e.g. DCUTDTC is not missing;
-%if &__DCUTDTC. eq %str() %then %put %str(ER)ROR: Envoronment Variable DCUTDTC not set;
  
 * ==================================================================;
 * extract the protocol and project type from the project name;
@@ -130,39 +125,8 @@
 * ==================================================================;
 * define library locations - these are dependent on the project type;
 * ==================================================================;
- 
-* SDTM ;
-* ------------------------------------------------------------------;
-%if %sysfunc(find(%upcase(&__PROJECT_TYPE.),SDTM)) ge 1 %then %do;
-  * Local read/write access to SDTM and QC folders ;
-  libname SDTMUNBD   "&__localdata_path./SDTMUNBLIND";
-  libname SDTMBLND "&__localdata_path./SDTMBLIND";
-  * Imported SDTM projects; 
-  libname RAW "&__sharedata_path./RAW" access=readonly;
-  libname UNBLIND "&__sharedata_path./UNBLIND" access=readonly;
-  libname BLIND "&__sharedata_path./BLIND" access=readonly;
-  * Metadata;
-  libname METADATA "&__localdata_path./METADATA";
-%end;
 
-* Reporting Effort (RE) project ;
-* ------------------------------------------------------------------;
-%if %sysfunc(find(%upcase(&__PROJECT_TYPE.),RE)) ge 1 %then %do;
-  * imported read-only SDTM data, using the data cutoff date.. ;
-  * .. and sdtm variable to identify the correct snapshot to use ;
-  %let __SDTM_DATASET = %sysget(SDTM_DATASET);
-  %if &__SDTM_DATASET. eq %str() %then %put %str(ER)ROR: Environment Variable SDTM_DATASET not set;
-  libname SDTM "/mnt/imported/data/snapshots/&__SDTM_DATASET./&__DCUTDTC." access=readonly;
-  * local read/write acces to ADaM and QC folders;
-  libname ADAM   "&__localdata_path./ADAM";
-  libname ADAMQC "&__localdata_path./ADAMQC";
-  * local read/write for TFL datasets ;
-  libname TFL   "&__localdata_path./TFL";
-  libname TFLQC "&__localdata_path./TFLQC";
-  * Metadata;
-  libname METADATA "&__localdata_path./METADATA";
-%end;
- 
+
 * ==================================================================;
 * Set SASAUTOS to search for shared macros ;
 * ==================================================================;
@@ -240,7 +204,6 @@ options
 * ==================================================================;
 %put TRACE: (domino.sas) [__WORKING_DIR = &__WORKING_DIR.] ;
 %put TRACE: (domino.sas) [__PROJECT_NAME = &__PROJECT_NAME.];
-%put TRACE: (domino.sas) [__DCUTDTC = &__DCUTDTC.];
 %put TRACE: (domino.sas) [__PROTOCOL = &__PROTOCOL.];
 %put TRACE: (domino.sas) [__PROJECT_TYPE = &__PROJECT_TYPE.];
 %put TRACE: (domino.sas) [__localdata_path = &__localdata_path.];

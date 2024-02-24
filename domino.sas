@@ -27,7 +27,6 @@
 * - none
 * 
 * Input Environment Variables:
-* - DOMINO_PROJECT_NAME
 * - DOMINO_WORKING_DIR
 *
 * Outputs:                                                   
@@ -67,11 +66,6 @@
 
 * globals read in from env vars; 
 %global __WORKING_DIR  ; * path to root of working directory ;
-%global __PROJECT_NAME ; * project name <PROTOCOL>_<TYPE> ;
- 
-* globals derived from env vars;
-%global __PROTOCOL;      * Protocol identifier e.g H2QMCLZZT; 
-%global __PROJECT_TYPE ; * project type: SDTM | ADAM | TFL ;
  
 * other globals exported by setup;
 %global __prog_path;     * full path to the program being run;
@@ -85,20 +79,6 @@
 * grab the environment varaibles that we need to create pathnames;
 * ==================================================================;
 %let __WORKING_DIR  = %sysget(DOMINO_WORKING_DIR);
-%let __PROJECT_NAME = %sysget(DOMINO_PROJECT_NAME);
- 
-* ==================================================================;
-* extract the protocol and project type from the project name;
-* ==================================================================;
-%if %sysfunc(find(&__PROJECT_NAME.,_)) ge 1 %then %do;
-  %* found an underscrore, so assume project name is <PROTOCOL>_<TYPE> ;
-  %let __PROTOCOL     = %scan(&__PROJECT_NAME.,1,'_');
-  %* project type is everything after the protocol in the project name ;
-  %let __PROJECT_TYPE = %sysfunc(tranwrd(&__PROJECT_NAME.,&__PROTOCOL._, %str()));
-  %end;
-%else %do;
-  %put %str(ER)ROR: Project Name (DOMINO_PROJECT_NAME) ill-formed. Expecting <PROTOCOL>_<TYPE> ;
-%end;
  
 * ==================================================================;
 * work out if the project is git or domino based
@@ -203,7 +183,6 @@ options
 * this is done outside the setup macro to ensure global vars are defined;
 * ==================================================================;
 %put TRACE: (domino.sas) [__WORKING_DIR = &__WORKING_DIR.] ;
-%put TRACE: (domino.sas) [__PROJECT_NAME = &__PROJECT_NAME.];
 %put TRACE: (domino.sas) [__PROTOCOL = &__PROTOCOL.];
 %put TRACE: (domino.sas) [__PROJECT_TYPE = &__PROJECT_TYPE.];
 %put TRACE: (domino.sas) [__localdata_path = &__localdata_path.];

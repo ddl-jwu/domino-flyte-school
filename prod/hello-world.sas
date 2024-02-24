@@ -1,5 +1,10 @@
 /* A simple Hello World SAS program */
 
+*********;
+** Setup environment including libraries for this reporting effort;
+%include "/mnt/code/domino.sas";
+*********;
+
 /* Print Hello World */
 data _null_;
    put "Hello, World!";

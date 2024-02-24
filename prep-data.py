@@ -14,6 +14,7 @@ print(df)
 # Write output
 named_output = "processed_data"
 output_dir = "/workflow/outputs/{}".format(named_output)
+os.mkdir(output_dir) 
 df.to_csv("{}/data.csv".format(output_dir))
 
 # Write output success

@@ -40,7 +40,7 @@ train_job = DominoJobTask(
 
 # pyflyte run --remote workflow.py training_workflow
 @workflow
-def training_workflow():
+def training_workflow() -> FlyteDirectory:
     processed_data = prep_data_job(data_path="./data.csv")
     model = train_job(processed_data=processed_data)
-    return 
+    return model

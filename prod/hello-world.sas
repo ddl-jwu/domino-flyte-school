@@ -2,6 +2,11 @@
 This program reads in a set of grades for six students, and prints out their student numbers and genders
 ******************/
 
+*********;
+** Setup environment including libraries for this reporting effort;
+%include "/mnt/code/domino.sas";
+*********;
+
 OPTIONS NODATE LS=78;
 DATA grade;
     Input subject gender $

@@ -16,5 +16,5 @@ named_output = "processed_data"
 df.to_csv("/workflow/outputs/{}".format(named_output))
 
 # Write output success
-with open("/pipeline/outputs/_SUCCESS", "w+"):
+with open("/workflow/outputs/_SUCCESS", "w+"):
     pass

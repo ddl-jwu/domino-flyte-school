@@ -1,26 +1,22 @@
-/****************
-This program reads in a set of grades for six students, and prints out their student numbers and genders
-******************/
+/* A simple Hello World SAS program */
 
-*********;
-** Setup environment including libraries for this reporting effort;
-%include "/mnt/code/domino.sas";
-*********;
+/* Print Hello World */
+data _null_;
+   put "Hello, World!";
+run;
 
-OPTIONS NODATE LS=78;
-DATA grade;
-    Input subject gender $
-        exam1 exam2 hwgrade $;
-    DATELINES;
-    10 M 80 84 A
-     7 . 85 89 A
-     4 F 90 .  B
-    20 M 82 85 B
-    25 F 94 94 A
-    14 F 88 84 C
-    ;
-    RUN;
+/* Get license information */
+proc setinit noalias;
+run;
 
-PROC PRINT data=grade;
-    var subject gender; * print student ID and gender;
+/* Output total memory size default value */
+proc options option=MEMSIZE value;
+run;
+
+/* Output total sort size default value */
+proc options option=SORTSIZE value;
+run;
+
+/* Output number of threads default value */
+proc options option=CPUCOUNT value;
 run;

@@ -9,7 +9,7 @@ data sdtm;
 run;
 
 proc export data=sdtm 
-    outfile="/workflow/outputs/adae_data/data.sas7bdat";
+    outfile="/workflow/outputs/adae_data/data.sas7bdat"
     dbms=sas7bdat replace;
 run;
 

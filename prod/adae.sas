@@ -13,7 +13,7 @@ options dlcreatedir;
 * run;
 
 data input_string; 
-    infile "/workflow/inputs/adae_data";
+    infile "/workflow/inputs/sdtm_data_dir";
     input; 
 run;
 

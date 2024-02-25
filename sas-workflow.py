@@ -40,6 +40,5 @@ adae_job = DominoJobTask(
 # pyflyte run --remote sas-workflow.py sas_workflow
 @workflow
 def sas_workflow():
-    adae_job()
-    prep_data_job(data_path="./data/vs.sas7bdat")
+    adae_job(data_path="/mnt/code/data/vs.sas7bdat")
     return 

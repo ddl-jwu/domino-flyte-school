@@ -1,3 +1,4 @@
 data sdtm; 
-  set "/mnt/code/data/vs.sas7bdat"; 
+  set "/workflow/inputs/data_path"; 
 run;
+

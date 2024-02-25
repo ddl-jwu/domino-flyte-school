@@ -1,3 +1,4 @@
+%include "/mnt/code/domino.sas";
 data sdtm; 
   set "/workflow/inputs/data_path"; 
 run;

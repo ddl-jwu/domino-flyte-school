@@ -22,20 +22,6 @@ sas_job = DominoJobTask(
     sas_job_config
 )
 
-adsl_job_config = DominoJobConfig(
-    OwnerName=owner_name,
-    ProjectName=project_name,
-    ApiKey=api_key,
-    Command="prod/adae.sas",
-    CommitId=CommitId,
-    EnvironmentId="65cd54180df82f018c4fb7cf"
-)
-
-adsl_job = DominoJobTask(
-    "Create ADSL dataset",
-    adsl_job_config
-)
-
 adae_job_config = DominoJobConfig(
     OwnerName=owner_name,
     ProjectName=project_name,
@@ -50,22 +36,8 @@ adae_job = DominoJobTask(
     adae_job_config
 )
 
-t_ae_rel_job_config = DominoJobConfig(
-    OwnerName=owner_name,
-    ProjectName=project_name,
-    ApiKey=api_key,
-    Command="prod/t_ae_rel.sas",
-    CommitId=CommitId,
-    EnvironmentId="65cd54180df82f018c4fb7cf"
-)
-
-t_ae_rel_job = DominoJobTask(
-    "Create Treatment Emergent Adverse Events Table",
-    t_ae_rel_job_config
-)
-
 # pyflyte run --remote sas-workflow.py sas_workflow
 @workflow
 def sas_workflow():
-    adsl_job()
+    adae_job()
     return 

@@ -1,4 +1,6 @@
 %include "/mnt/code/domino.sas";
+
+options dlcreatedir;
 libname sdtm "/mnt/code/data";
 libname adae "/workflow/outputs/adae_data";
 

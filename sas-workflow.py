@@ -8,20 +8,6 @@ owner_name="integration-test"
 project_name="john-flyte-testing"
 CommitId="a06e6984d022f00671c07b83e5773b9b62849878"
 
-sas_job_config = DominoJobConfig(
-    OwnerName=owner_name,
-    ProjectName=project_name,
-    ApiKey=api_key,
-    Command="prod/hello-world.sas",
-    CommitId=CommitId,
-    EnvironmentId="65cd54180df82f018c4fb7cf"
-)
-
-sas_job = DominoJobTask(
-    "SAS Hello World",
-    sas_job_config
-)
-
 adae_job_config = DominoJobConfig(
     OwnerName=owner_name,
     ProjectName=project_name,

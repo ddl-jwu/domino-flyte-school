@@ -25,5 +25,5 @@ job = DominoJobTask(
 # pyflyte run --remote workflow-folder-input.py folder_workflow
 @workflow
 def folder_workflow():
-    job(input_dir="./data")
+    job(input_dir="/mnt/code/data")
     return 

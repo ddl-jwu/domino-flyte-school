@@ -1,5 +1,6 @@
 %include "/mnt/code/domino.sas";
-libname data "/mnt/code/data";
+libname sdtm "/mnt/code/data";
+libname adae "/workflow/outputs/adae_data";
 
 * data sdtm; 
 *   set "/workflow/inputs/data_path"; 
@@ -9,12 +10,8 @@ libname data "/mnt/code/data";
 *   set "/mnt/code/data/vs.sas7bdat"; 
 * run;
 
-data sdtm;
-    set data.vs;
+data adae.adae;
+    set sdtm.vs;
 run;
 
-proc export data=sdtm 
-    outfile="/workflow/outputs/adae_data"
-    dbms=csv replace;
-run;
-
+libname success "/workflow/outputs/_SUCCESS";

@@ -8,8 +8,9 @@ data sdtm;
   set "/mnt/code/data/vs.sas7bdat"; 
 run;
 
-proc export data=sdtm 
-    outfile="/workflow/outputs/adae_data/data.sas7bdat"
-    dbms=sas7bdat replace;
+libname output "/workflow/outputs/adae_data";
+data output.adae;
+  set sdtm;
 run;
+
 

@@ -8,7 +8,7 @@ options dlcreatedir;
 libname inputs "/workflow/inputs";
 libname outputs "/workflow/outputs";
 
-ods pdf file="/workflow/outputs/report.pdf";
+ods pdf file="/workflow/outputs/report";
 title "T_AE_REL Report";
 
 /* proc report data=inputs.adae;  */

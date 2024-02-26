@@ -8,21 +8,14 @@ owner_name="integration-test"
 project_name="john-flyte-testing"
 CommitId="a06e6984d022f00671c07b83e5773b9b62849878"
 
-# adae_job_config = DominoJobConfig(
-#     OwnerName=owner_name,
-#     ProjectName=project_name,
-#     ApiKey=api_key,
-#     Command="prod/adae.sas",
-#     CommitId=CommitId,
-#     EnvironmentId="65cd54180df82f018c4fb7cf"
-# )
-
-# adae_job = DominoJobTask(
-#     "Create ADAE dataset",
-#     adae_job_config,
-#     inputs={"data_path": FlyteFile},
-#     outputs={"adae_data": FlyteDirectory}
-# )
+adsl_job_config = DominoJobConfig(
+    OwnerName=owner_name,
+    ProjectName=project_name,
+    ApiKey=api_key,
+    Command="prod/adsl.sas",
+    CommitId=CommitId,
+    EnvironmentId="65cd54180df82f018c4fb7cf"
+)
 
 adae_job_config = DominoJobConfig(
     OwnerName=owner_name,
@@ -42,18 +35,17 @@ t_ae_rel_job_config = DominoJobConfig(
     EnvironmentId="65cd54180df82f018c4fb7cf"
 )
 
-
-# adae_job = DominoJobTask(
-#     "Create ADAE dataset",
-#     adae_job_config,
-#     inputs={"sdtm_data_dir": str},
-#     outputs={"adae_data_dir": str}
-# )
+adae_job = DominoJobTask(
+    "Create ADSL dataset",
+    adae_job_config,
+    inputs={"tv.sas7bdat": FlyteFile},
+    outputs={"adsl": FlyteFile}
+)
 
 adae_job = DominoJobTask(
     "Create ADAE dataset",
     adae_job_config,
-    inputs={"vs": FlyteFile},
+    inputs={"vs.sas7bdat": FlyteFile},
     outputs={"adae": FlyteFile}
 )
 
@@ -66,7 +58,7 @@ t_ae_rel_job = DominoJobTask(
 # pyflyte run --remote sas-workflow.py sas_workflow
 @workflow
 def sas_workflow():
-    adae_dataset = adae_job(vs="/mnt/code/data/vs.sas7bdat")
-    #adae_dataset = adae_job(**{"vs.sas7bdat": "/mnt/code/data/vs.sas7bdat"})
+    adsl_dataset = adsl_job(**{"tv.sas7bdat": "/mnt/code/data/tv.sas7bdat"})
+    adae_dataset = adae_job(**{"vs.sas7bdat": "/mnt/code/data/vs.sas7bdat"})
     t_ae_rel_job(**{"adae.sas7bdat": adae_dataset})
     return 

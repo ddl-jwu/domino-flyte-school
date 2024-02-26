@@ -4,7 +4,6 @@
 * For simplicity, we will simply print the input data onto a PDF file 
 *****************************************************************************/
 %include "/mnt/code/domino.sas";
-
 options dlcreatedir;
 libname inputs "/workflow/inputs";
 libname outputs "/workflow/outputs";

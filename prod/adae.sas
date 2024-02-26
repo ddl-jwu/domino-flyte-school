@@ -2,6 +2,7 @@
 
 options dlcreatedir;
 libname inputs "/workflow/inputs";
+libname outputs "/workflow/outputs";
 * libname sdtm "/mnt/code/data";
 libname adae "/workflow/outputs/adae_data";
 
@@ -21,7 +22,7 @@ libname adae "/workflow/outputs/adae_data";
 /* proc print data=input_string; */
 /* run; */
 
-data adae.adae;
+data outputs.adae;
     set inputs.vs;
 run;
 

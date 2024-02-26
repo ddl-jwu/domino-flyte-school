@@ -44,11 +44,12 @@ adae_job = DominoJobTask(
     "Create ADAE dataset",
     adae_job_config,
     inputs={"vs.sas7bdat": FlyteFile},
-    outputs={"adae_data_dir": str}
+    outputs={"adae.sas7bdat": FlyteFile}
 )
 
 # pyflyte run --remote sas-workflow.py sas_workflow
 @workflow
 def sas_workflow():
-    adae_data = adae_job(inputs={"vs.sas7bdat":"/mnt/code/data/vs.sas7bdat"})
+    # adae_data = adae_job(vs.sas7bdat=="/mnt/code/data/vs.sas7bdat")
+    adae_data = adae_job(**{"vs.sas7bdat": "/mnt/code/data/vs.sas7bdat"})
     return 

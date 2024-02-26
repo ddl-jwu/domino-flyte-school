@@ -7,7 +7,7 @@ libname outputs "/workflow/outputs";
 libname adae "/workflow/outputs/adae_data";
 
 data outputs.adae;
-    set "workflow/inputs/vs";
+    set "/workflow/inputs/vs";
 run;
 
 * data sdtm; 

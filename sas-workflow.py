@@ -9,7 +9,7 @@ owner_name=os.environ.get('DOMINO_USER_NAME')
 project_name=os.environ.get('DOMINO_PROJECT_NAME')
 CommitId="a06e6984d022f00671c07b83e5773b9b62849878"
 
-# Cre
+# Define the job for creating ADSL dataset
 adsl_job_config = DominoJobConfig(
     OwnerName=owner_name,
     ProjectName=project_name,
@@ -26,6 +26,7 @@ adsl_job = DominoJobTask(
     outputs={"adsl": FlyteFile}
 )
 
+# Define the job for creating ADAE dataset
 adae_job_config = DominoJobConfig(
     OwnerName=owner_name,
     ProjectName=project_name,
@@ -42,6 +43,7 @@ adae_job = DominoJobTask(
     outputs={"adae": FlyteFile}
 )
 
+# Define the job for creating ADVS dataset
 advs_job_config = DominoJobConfig(
     OwnerName=owner_name,
     ProjectName=project_name,
@@ -58,6 +60,7 @@ advs_job = DominoJobTask(
     outputs={"advs": FlyteFile}
 )
 
+# Define the job for creating t_ae_rel report
 t_ae_rel_job_config = DominoJobConfig(
     OwnerName=owner_name,
     ProjectName=project_name,
@@ -74,6 +77,7 @@ t_ae_rel_job = DominoJobTask(
     outputs={"report": FlyteFile}
 )
 
+# Define the job for creating t_vscat report
 t_vscat_job_config = DominoJobConfig(
     OwnerName=owner_name,
     ProjectName=project_name,
@@ -86,7 +90,8 @@ t_vscat_job_config = DominoJobConfig(
 t_vscat_job = DominoJobTask(
     "Generate T_VSCAT report",
     t_vscat_job_config,
-    inputs={"advs.sas7bdat": FlyteFile}
+    inputs={"advs.sas7bdat": FlyteFile},
+    outputs={"report": FlyteFile}
 )
 
 """
@@ -98,11 +103,11 @@ pyflyte run --remote sas-workflow.py sas_workflow --sdtm_tv_file "/mnt/code/data
 If you want to change the input data, replace the sdtm_tv_file, sdtm_ts_file, sdtm_ta_file parameters with locations to your input data.
 """
 @workflow
-def sas_workflow(sdtm_tv_file: FlyteFile, sdtm_ts_file: FlyteFile, sdtm_ta_file: FlyteFile) -> FlyteFile:
+def sas_workflow(sdtm_tv_file: FlyteFile, sdtm_ts_file: FlyteFile, sdtm_ta_file: FlyteFile) -> (FlyteFile, FlyteFile):
     print(sdtm_tv_file)
     adsl_dataset = adsl_job(**{"tv.sas7bdat": sdtm_tv_file})
     adae_dataset = adae_job(**{"ts.sas7bdat": sdtm_ts_file, "adsl.sas7bdat": adsl_dataset})
     advs_dataset = advs_job(**{"ta.sas7bdat": sdtm_ta_file, "adsl.sas7bdat": adsl_dataset})
     t_ae_rel_report = t_ae_rel_job(**{"adae.sas7bdat": adae_dataset})
-    t_vscat_job(**{"advs.sas7bdat": advs_dataset})
-    return t_ae_rel_report
+    t_vscat_report = t_vscat_job(**{"advs.sas7bdat": advs_dataset})
+    return t_ae_rel_report, t_vscat_report

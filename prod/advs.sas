@@ -1,10 +1,9 @@
 /******************************************************************************
-*  We are going to pretend that this script:
-*  1. Loads in the original SDTM tv.sas7bdat data & the processed ADSL data
-*  2. Uses that data to create the ADAE dataset
+* This scripts mocks the following use case:
+*  1. Loading in the original SDTM ta.sas7bdat data & a processed ADSL data
+*  2. Using that data to create the ADVS dataset
 * 
-*  For simplcity, we are going to mock the scenario by simply 
-*  merging the datasets together
+*  For simplcity, we will simply merging the datasets together
 *****************************************************************************/
 %include "/mnt/code/domino.sas";
 

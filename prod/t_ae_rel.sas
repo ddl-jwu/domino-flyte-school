@@ -9,11 +9,9 @@ options dlcreatedir;
 libname inputs "/workflow/inputs";
 libname outputs "/workflow/outputs";
 
-%let pdf_filename = report.pdf;
-ods pdf file=outputs.&pdf_filename;
+ods pdf file=outputs.report;
 
 proc print data=inputs.adae(obs=5);
-  title 'Final t_ae_rel report';
 run;
 
 ods pdf close;

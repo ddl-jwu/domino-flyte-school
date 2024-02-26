@@ -1,10 +1,9 @@
 /******************************************************************************
-*  We are going to pretend that this script:
-*  1. Loads in the original SDTM ts.sas7bdat data
-*  2. Transforms that data to create the ADSL dataset
+* This scripts mocks the following use case:
+*  1. Loading in the original SDTM tv.sas7bdat data 
+*  2. Using that data to create the ADSL dataset
 * 
-*  For simplcity, we are going to mock the scenario by simply 
-*  returning the same dataset as the output.
+*  For simplcity, we will simply carry forward the input to the output directory
 *****************************************************************************/
 %include "/mnt/code/domino.sas";
 

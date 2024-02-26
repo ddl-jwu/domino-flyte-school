@@ -17,5 +17,3 @@ run;
 ods pdf close;
 
 libname success "/workflow/outputs/_SUCCESS";
-    
-ods pdf close;

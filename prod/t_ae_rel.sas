@@ -4,7 +4,7 @@ options dlcreatedir;
 libname inputs "/workflow/inputs";
 libname outputs "/workflow/outputs";
 
-proc print data=inputs.adae;
+proc print data=inputs.adae(obs=5);
 run;
 
 libname success "/workflow/outputs/_SUCCESS";

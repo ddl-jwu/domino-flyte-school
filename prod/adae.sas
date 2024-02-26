@@ -12,6 +12,9 @@ libname outputs "/workflow/outputs";
 /* proc print data=input_string; */
 /* run; */
 
+proc print data=inputs.vs(obs=5);
+run;
+
 data outputs.adae;
     set inputs.vs;
 run;

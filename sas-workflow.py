@@ -40,6 +40,22 @@ adae_job = DominoJobTask(
     outputs={"adae": FlyteFile}
 )
 
+advs_job_config = DominoJobConfig(
+    OwnerName=owner_name,
+    ProjectName=project_name,
+    ApiKey=api_key,
+    Command="prod/advs.sas",
+    CommitId=CommitId,
+    EnvironmentId="65cd54180df82f018c4fb7cf"
+)
+
+advs_job = DominoJobTask(
+    "Create ADVS dataset",
+    advs_job_config,
+    inputs={"vs.sas7bdat": FlyteFile, "adsl.sas7bdat": FlyteFile},
+    outputs={"advs": FlyteFile}
+)
+
 t_ae_rel_job_config = DominoJobConfig(
     OwnerName=owner_name,
     ProjectName=project_name,
@@ -50,15 +66,33 @@ t_ae_rel_job_config = DominoJobConfig(
 )
 
 t_ae_rel_job = DominoJobTask(
-    "Generate report",
+    "Generate T_AE_REL report",
     t_ae_rel_job_config,
     inputs={"adae.sas7bdat": FlyteFile}
 )
+
+t_vscat_job_config = DominoJobConfig(
+    OwnerName=owner_name,
+    ProjectName=project_name,
+    ApiKey=api_key,
+    Command="prod/t_vscat.sas",
+    CommitId=CommitId,
+    EnvironmentId="65cd54180df82f018c4fb7cf"
+)
+
+t_vscat_job = DominoJobTask(
+    "Generate T_VSCAT report",
+    t_vscat_job_config,
+    inputs={"advs.sas7bdat": FlyteFile}
+)
+
 
 # pyflyte run --remote sas-workflow.py sas_workflow
 @workflow
 def sas_workflow():
     adsl_dataset = adsl_job(**{"tv.sas7bdat": "/mnt/code/data/tv.sas7bdat"})
     adae_dataset = adae_job(**{"ts.sas7bdat": "/mnt/code/data/ts.sas7bdat", "adsl.sas7bdat": adsl_dataset})
+    advs_dataset = advs_job(**{"vs.sas7bdat": "/mnt/code/data/vs.sas7bdat", "adsl.sas7bdat": adsl_dataset})
     t_ae_rel_job(**{"adae.sas7bdat": adae_dataset})
+    t_vscat_job(**{"advs.sas7bdat": advs_dataset})
     return 

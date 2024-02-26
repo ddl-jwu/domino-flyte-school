@@ -53,7 +53,7 @@ t_ae_rel_job_config = DominoJobConfig(
 adae_job = DominoJobTask(
     "Create ADAE dataset",
     adae_job_config,
-    inputs={"vs.sas7bdat": FlyteFile},
+    inputs={"vs": FlyteFile},
     outputs={"adae": FlyteFile}
 )
 
@@ -66,7 +66,7 @@ t_ae_rel_job = DominoJobTask(
 # pyflyte run --remote sas-workflow.py sas_workflow
 @workflow
 def sas_workflow():
-    # adae_data = adae_job(vs.sas7bdat=="/mnt/code/data/vs.sas7bdat")
-    adae_dataset = adae_job(**{"vs.sas7bdat": "/mnt/code/data/vs.sas7bdat"})
+    adae_data = adae_job(vs="/mnt/code/data/vs.sas7bdat")
+    #adae_dataset = adae_job(**{"vs.sas7bdat": "/mnt/code/data/vs.sas7bdat"})
     t_ae_rel_job(**{"adae.sas7bdat": adae_dataset})
     return 

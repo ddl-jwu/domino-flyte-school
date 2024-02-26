@@ -6,6 +6,10 @@ libname outputs "/workflow/outputs";
 * libname sdtm "/mnt/code/data";
 libname adae "/workflow/outputs/adae_data";
 
+data outputs.adae;
+    set "workflow/inputs/vs";
+run;
+
 * data sdtm; 
 *   set "/workflow/inputs/data_path"; 
 * run;

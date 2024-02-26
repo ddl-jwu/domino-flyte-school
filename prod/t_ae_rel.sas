@@ -11,7 +11,7 @@ libname outputs "/workflow/outputs";
 ods pdf file=outputs.report;
 
 proc report data=inputs.adae; 
-    title 'T_AE_REL Report' tsparmcs=100;
+    title "T_AE_REL Report" tsparmcs=100;
 run; 
 
 ods pdf close;

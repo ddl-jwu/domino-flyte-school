@@ -9,11 +9,12 @@ libname inputs "/workflow/inputs";
 libname outputs "/workflow/outputs";
 
 ods pdf file=outputs.report;
+title "T_AE_REL Report";
 
-proc report data=inputs.adae; 
-    title "T_AE_REL Report" tsparmcs=100;
-run; 
-
+/* proc report data=inputs.adae;  */
+/*     title "T_AE_REL Report" tsparmcs=100; */
+/* run;  */
+/*  */
 ods pdf close;
 
 libname success "/workflow/outputs/_SUCCESS";

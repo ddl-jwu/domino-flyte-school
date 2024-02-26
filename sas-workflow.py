@@ -88,12 +88,13 @@ t_vscat_job = DominoJobTask(
 )
 
 
-# pyflyte run --remote sas-workflow.py sas_workflow
+# pyflyte run --remote sas-workflow.py sas_workflow --sdtm_tv_file "/mnt/code/data/tv.sas7bdat" --sdtm_ts_file "/mnt/code/data/ts.sas7bdat" --sdtm_ta_file "/mnt/code/data/ta.sas7bdat"
 @workflow
-def sas_workflow():
-    adsl_dataset = adsl_job(**{"tv.sas7bdat": "/mnt/code/data/tv.sas7bdat"})
-    adae_dataset = adae_job(**{"ts.sas7bdat": "/mnt/code/data/ts.sas7bdat", "adsl.sas7bdat": adsl_dataset})
-    advs_dataset = advs_job(**{"ta.sas7bdat": "/mnt/code/data/ta.sas7bdat", "adsl.sas7bdat": adsl_dataset})
-    t_ae_rel_job(**{"adae.sas7bdat": adae_dataset})
+def sas_workflow(sdtm_tv_file: FlyteFile, sdtm_ts_file: FlyteFile, sdtm_ta_file: FlyteFile) -> FlyteFile:
+    print(sdtm_tv_file)
+    adsl_dataset = adsl_job(**{"tv.sas7bdat": sdtm_tv_file})
+    adae_dataset = adae_job(**{"ts.sas7bdat": sdtm_ts_file, "adsl.sas7bdat": adsl_dataset})
+    advs_dataset = advs_job(**{"ta.sas7bdat": sdtm_ta_file, "adsl.sas7bdat": adsl_dataset})
+    t_ae_rel_report = t_ae_rel_job(**{"adae.sas7bdat": adae_dataset})
     t_vscat_job(**{"advs.sas7bdat": advs_dataset})
-    return 
+    return t_ae_rel_report

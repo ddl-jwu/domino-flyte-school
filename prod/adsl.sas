@@ -12,8 +12,8 @@ options dlcreatedir;
 libname inputs "/workflow/inputs"; /* All inputs live in this directory */ 
 libname outputs "/workflow/outputs"; /* All outputs must go to this directory */ 
 
-data outputs.adae;
-    set inputs.ts;
+data outputs.adsl;
+    set inputs.tv;
 run;
 
 /* (Required) This line signals to Domino Flows that outputs were successfully created */

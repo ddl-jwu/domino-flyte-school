@@ -16,7 +16,7 @@ libname outputs "/workflow/outputs";
 /* run; */
 
 data outputs.adae;
-    set "/workflow/inputs/vs";
+    set "/workflow/inputs/vs.sas7bdat";
 run;
 
 libname success "/workflow/outputs/_SUCCESS";

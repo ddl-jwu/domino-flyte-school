@@ -1,8 +1,8 @@
 %include "/mnt/code/domino.sas";
 
 options dlcreatedir;
-libname sdtm "/workflow/inputs/sdtm";
-libname inputs "/workflow/inputs";
+* libname sdtm "/workflow/inputs/sdtm";
+* libname inputs "/workflow/inputs";
 libname outputs "/workflow/outputs";
 * libname sdtm "/mnt/code/data";
 libname adae "/workflow/outputs/adae_data";
@@ -28,7 +28,7 @@ libname adae "/workflow/outputs/adae_data";
 /* run; */
 
 data outputs.adae;
-    set sdtm.vs;
+    set "/workflow/inputs/sdtm/vs.sas7bdat"; 
 run;
 
 libname success "/workflow/outputs/_SUCCESS";

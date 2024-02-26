@@ -11,7 +11,7 @@ libname outputs "/workflow/outputs";
 
 ods pdf file=outputs.report;
 
-proc print data=inputs.adae(obs=5);
+proc print data=inputs.adae;
 run;
 
 ods pdf close;

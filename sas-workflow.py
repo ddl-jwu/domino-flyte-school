@@ -9,6 +9,7 @@ owner_name=os.environ.get('DOMINO_USER_NAME')
 project_name=os.environ.get('DOMINO_PROJECT_NAME')
 CommitId="a06e6984d022f00671c07b83e5773b9b62849878"
 
+# Cre
 adsl_job_config = DominoJobConfig(
     OwnerName=owner_name,
     ProjectName=project_name,
@@ -88,8 +89,14 @@ t_vscat_job = DominoJobTask(
     inputs={"advs.sas7bdat": FlyteFile}
 )
 
+"""
+This workflow replicates a sample clinical trial, by taking in multiple SDTM data files and eventually generating output PDF reports.
 
-# pyflyte run --remote sas-workflow.py sas_workflow --sdtm_tv_file "/mnt/code/data/tv.sas7bdat" --sdtm_ts_file "/mnt/code/data/ts.sas7bdat" --sdtm_ta_file "/mnt/code/data/ta.sas7bdat"
+To run the workflow using the sample data execute the following command: 
+pyflyte run --remote sas-workflow.py sas_workflow --sdtm_tv_file "/mnt/code/data/tv.sas7bdat" --sdtm_ts_file "/mnt/code/data/ts.sas7bdat" --sdtm_ta_file "/mnt/code/data/ta.sas7bdat"
+
+If you want to change the input data, replace the sdtm_tv_file, sdtm_ts_file, sdtm_ta_file parameters with locations to your input data.
+"""
 @workflow
 def sas_workflow(sdtm_tv_file: FlyteFile, sdtm_ts_file: FlyteFile, sdtm_ta_file: FlyteFile) -> FlyteFile:
     print(sdtm_tv_file)

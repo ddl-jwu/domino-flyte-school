@@ -69,7 +69,8 @@ t_ae_rel_job_config = DominoJobConfig(
 t_ae_rel_job = DominoJobTask(
     "Generate T_AE_REL report",
     t_ae_rel_job_config,
-    inputs={"adae.sas7bdat": FlyteFile}
+    inputs={"adae.sas7bdat": FlyteFile},
+    outputs={"report": FlyteFile}
 )
 
 t_vscat_job_config = DominoJobConfig(

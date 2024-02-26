@@ -1,7 +1,7 @@
 %include "/mnt/code/domino.sas";
 
 options dlcreatedir;
-libname sdtm "workflow/inputs/sdtm";
+libname sdtm "/workflow/inputs/sdtm";
 libname inputs "/workflow/inputs";
 libname outputs "/workflow/outputs";
 * libname sdtm "/mnt/code/data";

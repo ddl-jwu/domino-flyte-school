@@ -104,7 +104,6 @@ If you want to change the input data, replace the sdtm_tv_file, sdtm_ts_file, sd
 """
 @workflow
 def sas_workflow(sdtm_tv_file: FlyteFile, sdtm_ts_file: FlyteFile, sdtm_ta_file: FlyteFile) -> (FlyteFile, FlyteFile):
-    print(sdtm_tv_file)
     adsl_dataset = adsl_job(**{"tv.sas7bdat": sdtm_tv_file})
     adae_dataset = adae_job(**{"ts.sas7bdat": sdtm_ts_file, "adsl.sas7bdat": adsl_dataset})
     advs_dataset = advs_job(**{"ta.sas7bdat": sdtm_ta_file, "adsl.sas7bdat": adsl_dataset})

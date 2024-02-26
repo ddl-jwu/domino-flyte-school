@@ -35,7 +35,7 @@ t_ae_rel_job_config = DominoJobConfig(
     EnvironmentId="65cd54180df82f018c4fb7cf"
 )
 
-adae_job = DominoJobTask(
+adsl_job = DominoJobTask(
     "Create ADSL dataset",
     adae_job_config,
     inputs={"tv.sas7bdat": FlyteFile},
@@ -45,7 +45,7 @@ adae_job = DominoJobTask(
 adae_job = DominoJobTask(
     "Create ADAE dataset",
     adae_job_config,
-    inputs={"vs.sas7bdat": FlyteFile},
+    inputs={"ts.sas7bdat": FlyteFile, "adsl.sas7bdat": FlyteFile},
     outputs={"adae": FlyteFile}
 )
 
@@ -59,6 +59,6 @@ t_ae_rel_job = DominoJobTask(
 @workflow
 def sas_workflow():
     adsl_dataset = adsl_job(**{"tv.sas7bdat": "/mnt/code/data/tv.sas7bdat"})
-    adae_dataset = adae_job(**{"vs.sas7bdat": "/mnt/code/data/vs.sas7bdat"})
+    adae_dataset = adae_job(**{"ts.sas7bdat": "/mnt/code/data/ts.sas7bdat", "adsl.sas7bdat": adsl_dataset})
     t_ae_rel_job(**{"adae.sas7bdat": adae_dataset})
     return 

@@ -1,6 +1,6 @@
 /******************************************************************************
 *  We are going to pretend that this script:
-*  1. Loads in the original SDTM data
+*  1. Loads in the original SDTM ts.sas7bdat data
 *  2. Transforms that data to create the ADSL dataset
 * 
 *  For simplcity, we are going to mock the scenario by simply 

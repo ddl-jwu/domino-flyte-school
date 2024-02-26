@@ -1,11 +1,12 @@
+import os
 from domino.flyte.task import DominoJobConfig, DominoJobTask
 from flytekit import workflow, task
 from flytekit.types.file import FlyteFile, CSVFile
 from flytekit.types.directory import FlyteDirectory
 
-api_key="603d2f07ed65bbb3be5bdf97ef5f10074a555febabd1fd9d1bdf284ab7ec5d27"
-owner_name="integration-test"
-project_name="john-flyte-testing"
+api_key=os.environ.get('DOMINO_USER_API_KEY')
+owner_name=os.environ.get('DOMINO_USER_NAME')
+project_name=os.environ.get('DOMINO_PROJECT_NAME')
 CommitId="a06e6984d022f00671c07b83e5773b9b62849878"
 
 adsl_job_config = DominoJobConfig(
@@ -52,7 +53,7 @@ advs_job_config = DominoJobConfig(
 advs_job = DominoJobTask(
     "Create ADVS dataset",
     advs_job_config,
-    inputs={"vs.sas7bdat": FlyteFile, "adsl.sas7bdat": FlyteFile},
+    inputs={"ta.sas7bdat": FlyteFile, "adsl.sas7bdat": FlyteFile},
     outputs={"advs": FlyteFile}
 )
 
@@ -92,7 +93,7 @@ t_vscat_job = DominoJobTask(
 def sas_workflow():
     adsl_dataset = adsl_job(**{"tv.sas7bdat": "/mnt/code/data/tv.sas7bdat"})
     adae_dataset = adae_job(**{"ts.sas7bdat": "/mnt/code/data/ts.sas7bdat", "adsl.sas7bdat": adsl_dataset})
-    advs_dataset = advs_job(**{"vs.sas7bdat": "/mnt/code/data/vs.sas7bdat", "adsl.sas7bdat": adsl_dataset})
+    advs_dataset = advs_job(**{"ta.sas7bdat": "/mnt/code/data/ta.sas7bdat", "adsl.sas7bdat": adsl_dataset})
     t_ae_rel_job(**{"adae.sas7bdat": adae_dataset})
     t_vscat_job(**{"advs.sas7bdat": advs_dataset})
     return 

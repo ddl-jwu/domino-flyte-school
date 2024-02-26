@@ -13,7 +13,7 @@ libname inputs "/workflow/inputs"; /* All inputs live in this directory */
 libname outputs "/workflow/outputs"; /* All outputs must go to this directory */ 
 
 data outputs.advs;
-    merge inputs.vs inputs.adsl;
+    merge inputs.ta inputs.adsl;
 run;
 
 /* (Required) This line signals to Domino Flows that outputs were successfully created */

@@ -5,10 +5,11 @@
 *****************************************************************************/
 %include "/mnt/code/domino.sas";
 options dlcreatedir;
-libname inputs "/workflow/inputs";
-libname outputs "/workflow/outputs";
+libname inputs "/workflow/inputs"; /* All inputs live in this directory */ 
+libname outputs "/workflow/outputs"; /* All outputs must go to this directory */ 
+libname report "/workflow/outputs/report";
 
-ods pdf file="/workflow/outputs/report/report.pdf";
+ods pdf file=report;
 title "T_AE_REL Report";
 
 /* proc report data=inputs.adae;  */
@@ -17,4 +18,6 @@ title "T_AE_REL Report";
 /*  */
 ods pdf close;
 
+/* (Required) This line signals to Domino Flows that outputs were successfully created */
 libname success "/workflow/outputs/_SUCCESS";
+

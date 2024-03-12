@@ -21,6 +21,7 @@ def define_job(
         ApiKey=api_key,
         Command="sleep 10",
         CommitId=CommitId,
+        MainRepoGitRef=GitRef(Type="head"),
         EnvironmentId="65cd1bb0cd1d01583b5d8f2d",
         EnvironmentRevisionSpec=EnvironmentRevisionSpecification(
             EnvironmentRevisionType=EnvironmentRevisionType.SomeRevision,
@@ -35,11 +36,7 @@ def define_job(
         name,
         job_config,
         inputs=inputs,
-        outputs=outputs
+        outputs=outputs        
     )
 
     return job
-
-
-
- 

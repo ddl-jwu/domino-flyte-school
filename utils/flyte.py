@@ -1,20 +1,30 @@
 import os
+from typing import List
 from flytekit.types.file import FlyteFile
 from domino.flyte.task import DominoJobConfig, DominoJobTask, EnvironmentRevisionSpecification, EnvironmentRevisionType, GitRef
 from flytekit.loggers import logger
+from dataclasses import dataclass
 
+@dataclass
 class Input:
-    def __init__(self, type: type, value: FlyteFile):
-        self.type = type
-        self.value = value
+    """Class for defining an input for the Domino Job task in Flyte"""
+    name: str
+    type: type
+    value: any
+
+@dataclass
+class Output:
+    """Class for defining an output for the Domino Job task in Flyte"""
+    name: str
+    type: type
 
 def run_domino_job(
     name: str, 
     command: str, 
     environment: str,
     hardware_tier: str, 
-    inputs: dict = None,
-    outputs: dict = None
+    inputs: List[Input] = None,
+    outputs: List[Output] = None,
 ) -> DominoJobTask:
 
     api_key=os.environ.get('DOMINO_USER_API_KEY')
@@ -46,17 +56,19 @@ def run_domino_job(
 
     input_types = {}
     input_values = {}
-    for key, value in inputs.items():
-        input_types[key] = value.type
-        input_values[key] = value.value
+    for input in inputs:
+        input_types[input.name] = input.type
+        input_values[input.name] = input.value
 
-    print(input_types)
+    output_types = {}
+    for output in outputs:
+        output_types[output.name] = output.type
 
     job = DominoJobTask(
         name,
         job_config,
         inputs=input_types,
-        outputs=outputs        
+        outputs=output_types        
     )
 
     results = job(**input_values)

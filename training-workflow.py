@@ -6,7 +6,7 @@ from flytekit.types.directory import FlyteDirectory
 '''
 To run this workflowp, execute the following line in the terminal
 
-pyflyte run --remote workflow.py training_workflow
+pyflyte run --remote training-workflow.py training_workflow
 '''
 @workflow
 def training_workflow(data_path: FlyteFile="/mnt/code/data/data.csv") -> FlyteFile: 

@@ -38,6 +38,7 @@ def run_domino_job(
     hardwareTierId = "small-k8s" # TODO: Convert hardware tier name to hardware tier ID 
 
     job_config = DominoJobConfig(
+        Title=name,
         OwnerName=owner_name,
         ProjectName=project_name,
         ApiKey=api_key,

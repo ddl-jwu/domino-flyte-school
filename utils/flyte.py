@@ -51,7 +51,8 @@ def run_domino_job(
         ),
         HardwareTierId=hardwareTierId,
         VolumeSizeGiB=10,
-        ExternalVolumeMountIds=[]
+        DatasetSnapshots=[],
+        ExternalVolumeMountIds=[],
     )
 
     input_types = {}

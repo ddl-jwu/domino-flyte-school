@@ -10,6 +10,15 @@ pyflyte run --remote training-workflow.py training_workflow
 '''
 @workflow
 def training_workflow(data_path: FlyteFile="/mnt/code/data/data.csv") -> FlyteFile: 
+    """
+    Sample data preparation and training workflow
+
+    This workflow accepts a path to a CSV for some initial input and simulates
+    the processing of the data and usage of the processed data in a training job.
+
+    :param data_path: Path of the CSV file data
+    :return: The training results as a model
+    """
 
     data_prep_results = run_domino_job(
         name="Prepare data",
